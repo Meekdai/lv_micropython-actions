@@ -10,17 +10,17 @@ on:
       branches-tags:
         description: 'branches-tags'
         required: true
-        default: 'master'
+        default: 'v1.17'
       board:
         description: 'board'
         required: true
-        default: 'GENERIC'
+        default: 'km17'
       idf-version:
         description: 'idf-version'
         required: true
         default: 'v4.3'
       custom-board:
-        description: 'custom-board'
+        description: 'km17'
         required: false
         default: ''
       build-with:

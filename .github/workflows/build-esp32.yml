@@ -45,7 +45,6 @@ jobs:
 
     - name: Bulid
       run: |
-        cd /opt/micropython
         source ./esp-idf/export.sh
         mkdir /opt/firmware
         cd /opt/micropython

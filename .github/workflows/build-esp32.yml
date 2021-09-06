@@ -37,7 +37,9 @@ jobs:
       run: |
         git clone ${{github.event.inputs.git-address}} /opt/micropython
         cd /opt/micropython
-
+        git checkout ${{github.event.inputs.branches-tags}}
+        git pull origin ${{github.event.inputs.branches-tags}}
+        
     - name: Install packages
       run: source /opt/micropython/tools/ci.sh && ci_esp32_setup_helper ${{github.event.inputs.idf-version}}
 

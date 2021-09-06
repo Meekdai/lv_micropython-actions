@@ -20,9 +20,9 @@ on:
         required: true
         default: 'v4.3'
       custom-board:
-        description: 'km17'
+        description: 'custom-board'
         required: false
-        default: ''
+        default: 'km17'
       build-with:
         description: 'build-with'
         required: false

@@ -53,6 +53,8 @@ jobs:
         git submodule update --init
         make -C mpy-cross
         make -C ports/esp32 submodules
+        rm -rf /opt/micropython/lib/lv_bindings/driver/esp32/
+        mkdir /opt/micropython/lib/lv_bindings/driver/esp32
         cp -r /home/runner/work/lv_micropython-actions/lv_micropython-actions/boards/${{github.event.inputs.custom-board}} ports/esp32/boards
         make -C ports/esp32 LV_CFLAGS="-DLV_COLOR_16_SWAP=1" BOARD=${{github.event.inputs.board}} ${{github.event.inputs.build-with}} 
         cp ports/esp32/build-${{github.event.inputs.board}}/firmware.bin /opt/firmware

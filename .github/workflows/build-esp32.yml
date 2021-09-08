@@ -10,7 +10,7 @@ on:
       branches-tags:
         description: 'branches-tags'
         required: true
-        default: 'v1.17'
+        default: 'master'
       board:
         description: 'board'
         required: true
@@ -26,7 +26,7 @@ on:
       build-with:
         description: 'build-with'
         required: false
-        default: ''
+        default: 'USER_C_MODULES=/home/runner/work/lv_micropython-actions/lv_micropython-actions/cmodule/st7789/micropython.cmake'
 
 jobs:
   build:

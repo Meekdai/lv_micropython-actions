@@ -54,7 +54,7 @@ jobs:
         make -C mpy-cross
         make -C ports/esp32 submodules
         cp -r /home/runner/work/lv_micropython-actions/lv_micropython-actions/boards/${{github.event.inputs.custom-board}} ports/esp32/boards
-        make -C ports/esp32 LV_CFLAGS="-DLV_COLOR_16_SWAP=1 -DCONFIG_IDF_TARGET_ESP32S2=1"  BOARD=${{github.event.inputs.board}} ${{github.event.inputs.build-with}} 
+        make -C ports/esp32 LV_CFLAGS="-DLV_COLOR_16_SWAP=1" CONFIG_IDF_TARGET_ESP32S2=1 BOARD=${{github.event.inputs.board}} ${{github.event.inputs.build-with}} 
         cp ports/esp32/build-${{github.event.inputs.board}}/firmware.bin /opt/firmware
         cp ports/esp32/build-${{github.event.inputs.board}}/micropython.bin /opt/firmware
         cp ports/esp32/build-${{github.event.inputs.board}}/bootloader/bootloader.bin /opt/firmware

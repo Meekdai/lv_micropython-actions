@@ -1,0 +1,63 @@
+name: build-stm32
+
+on:
+  workflow_dispatch:
+    inputs:
+      git-address:
+        description: 'git-address'
+        required: true
+        default: 'https://github.com/lvgl/lv_micropython.git'
+      branches-tags:
+        description: 'branches-tags'
+        required: true
+        default: 'master'
+      board:
+        description: 'board'
+        required: true
+        default: 'GRAPEPI_LITE'
+      custom-board:
+        description: 'custom-board'
+        required: false
+        default: 'GRAPEPI_LITE'
+      build-with:
+        description: 'build-with'
+        required: false
+        default: 'USER_C_MODULES=/home/runner/work/lv_micropython-actions/lv_micropython-actions/cmodule all'
+
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Clone source code
+      run: |
+        git clone ${{github.event.inputs.git-address}} /opt/micropython
+        cd /opt/micropython
+
+    - name: Install packages
+      run: source /opt/micropython/tools/ci.sh && ci_stm32_setup
+
+    - name: Bulid
+      run: |
+        mkdir /opt/firmware
+        cd /opt/micropython
+        git checkout ${{github.event.inputs.branches-tags}}
+        git pull origin ${{github.event.inputs.branches-tags}}
+        git submodule update --init
+        make -C mpy-cross
+        tagDate= git show -s --format="%ct"
+        if [ $tagDate > 1571130880 ]; then make -C ports/stm32 submodules; fi # commit f562f94
+        if [ $tagDate > 1583776421 ]; then git submodule update --init lib/btstack; fi # commit ecee6f2
+        cp -r /home/runner/work/micropython-actions/micropython-actions/boards/${{github.event.inputs.custom-board}} ports/stm32/boards
+        make -C ports/stm32 BOARD=${{github.event.inputs.board}} ${{github.event.inputs.build-with}}
+        cp ports/stm32/build-${{github.event.inputs.board}}/firmware.dfu /opt/firmware
+        cp ports/stm32/build-${{github.event.inputs.board}}/firmware.hex /opt/firmware
+        cp ports/stm32/build-${{github.event.inputs.board}}/firmware0.bin /opt/firmware
+        cp ports/stm32/build-${{github.event.inputs.board}}/firmware1.bin /opt/firmware
+
+    - name : Upload firmware-${{github.event.inputs.branches-tags}}-stm32-${{github.event.inputs.board}}
+      uses: actions/upload-artifact@master
+      with:
+        name: firmware-${{github.event.inputs.branches-tags}}-stm32-${{github.event.inputs.board}}
+        path: /opt/firmware

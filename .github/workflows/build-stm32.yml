@@ -32,9 +32,11 @@ jobs:
     - uses: actions/checkout@v2
     - name: Clone source code
       run: |
-        git clone ${{github.event.inputs.git-address}} /opt/micropython
+        git clone --recursive ${{github.event.inputs.git-address}} /opt/micropython
         cd /opt/micropython
-
+        git checkout ${{github.event.inputs.branches-tags}}
+        git pull origin ${{github.event.inputs.branches-tags}}
+        
     - name: Install packages
       run: source /opt/micropython/tools/ci.sh && ci_stm32_setup
 

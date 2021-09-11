@@ -52,7 +52,7 @@ jobs:
         if [ $tagDate > 1571130880 ]; then make -C ports/stm32 submodules; fi # commit f562f94
         if [ $tagDate > 1583776421 ]; then git submodule update --init lib/btstack; fi # commit ecee6f2
         cp -r /home/runner/work/lv_micropython-actions/lv_micropython-actions/boards/${{github.event.inputs.custom-board}} ports/stm32/boards
-        make -C ports/stm32 LV_CFLAGS="-DLV_COLOR_DEPTH=16" BOARD=${{github.event.inputs.board}} ${{github.event.inputs.build-with}}
+        make -C ports/stm32 LV_CFLAGS="-DLV_COLOR_16_SWAP=1" BOARD=${{github.event.inputs.board}} ${{github.event.inputs.build-with}}
         cp ports/stm32/build-${{github.event.inputs.board}}/firmware.dfu /opt/firmware
         cp ports/stm32/build-${{github.event.inputs.board}}/firmware.hex /opt/firmware
         cp ports/stm32/build-${{github.event.inputs.board}}/firmware0.bin /opt/firmware

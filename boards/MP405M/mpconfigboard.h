@@ -119,6 +119,7 @@
 
 // use external SPI flash for storage
 #define MICROPY_HW_ENABLE_INTERNAL_FLASH_STORAGE (0)
+#define MICROPY_HW_SPIFLASH_ENABLE_CACHE (1)
 #define MICROPY_HW_SPIFLASH_SIZE_BITS (128 * 1024 * 1024)
 #define MICROPY_HW_SPIFLASH_CS      (pin_B5)
 // #define MICROPY_HW_SPIFLASH_CS      (pin_B6)

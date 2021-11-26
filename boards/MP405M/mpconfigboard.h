@@ -1,6 +1,8 @@
 #define MICROPY_HW_BOARD_NAME       "MP405M"
 #define MICROPY_HW_MCU_NAME         "STM32F405RG"
 
+#define MICROPY_GIT_TAG "v1.17-LVGL"
+
 #define MICROPY_HW_HAS_SWITCH       (1)
 #define MICROPY_HW_HAS_FLASH        (1)
 #define MICROPY_HW_HAS_SDCARD       (0)

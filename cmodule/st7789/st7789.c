@@ -41,7 +41,9 @@
 
 #include "mpfile.h"
 #include "st7789.h"
-#include "tjpgd565.h"
+// #include "tjpgd565.h"
+
+#include "lib/lv_bindings/lvgl/src/extra/libs/sjpg/tjpgd.h"
 
 #define _swap_int(a, b) \
 	{                   \
